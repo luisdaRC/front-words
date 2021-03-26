@@ -2,10 +2,8 @@ import React from 'react';
 import useState from 'global-hook-store';
 import MatrixInputSize from "./components/MatrixInputSize";
 import MatrixInput from "./components/MatrixInput";
-import MatrixRow from "./components/MatrixRow";
 import GlobalState from "./components/GlobalState";
 import './App.css';
-const Swal = require('sweetalert2');
 
 function App() {
     const { actions, state } = useState(GlobalState);
