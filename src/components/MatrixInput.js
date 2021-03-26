@@ -5,7 +5,7 @@ import GlobalState from "./GlobalState";
 import MatrixRow from "./MatrixRow";
 const Swal = require('sweetalert2');
 
-function MatrixInput(matrixSize,matrix){
+function MatrixInput(matrixSize, matrix){
     const { actions, state } = useState(GlobalState);
     matrix = state.matrix;
     matrixSize = state.matrixSize;
@@ -18,10 +18,8 @@ function MatrixInput(matrixSize,matrix){
         console.log(matrix[i]);
     }
 
-    function handleSubmit (event,matrix) {
+    function handleSubmit (event, matrix) {
         event.preventDefault();
-        console.log(matrixSize);
-        console.log("What enters? : ",matrix);
         let count = 0;
         let flag = true;
         for (let i = 0; i < matrixSize; i++) {
@@ -32,10 +30,8 @@ function MatrixInput(matrixSize,matrix){
                     matrix[i][j] = event.target[count].value;
                 }else {
                     flag = false;
-                    Swal.fire('Oops...', 'It Looks like some field in the matrix is not filled.', 'Alert');
+                    Swal.fire('Oops...', 'It looks like some field in the matrix is not filled.', 'Alert');
                 }
-                //matrix[i][j] = !isNaN(event.target[count].value) ? event.target[count].value : 0;
-                console.log("Event.target: ",event.target[count].value);
                 count += 1;
 
             }
@@ -44,7 +40,6 @@ function MatrixInput(matrixSize,matrix){
         if (flag){
             state.matrix= actions.setMatrix(matrix);
         }
-        console.log("What is outside? : ",matrix);
 
     }
 
@@ -69,13 +64,10 @@ function MatrixInput(matrixSize,matrix){
                 )
             })}
             <br/><br/>
-            <button className="Button">{"Send matrix"}</button>
+            <button className="Button">{"Find my words!"}</button>
         </form>
 
     )
-
 }
-
-
 
 export default MatrixInput;
