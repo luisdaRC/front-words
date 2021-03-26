@@ -15,7 +15,7 @@ function App() {
     <div className="App">
         <MatrixInputSize setMatrixSize={object => actions.setMatrixSize(object)} />
 
-        <MatrixInput matrixSize={matrixSize} setMatrix={matrix => actions.setMatrix()} />
+        <MatrixInput matrixSize={matrixSize} setMatrix={matrix => actions.setMatrix(matrix)} />
     </div>
   );
 }
@@ -27,44 +27,45 @@ function MatrixInputSize() {
         <>
             <input
                 type="number"
-                defaultValue={2}
+                defaultValue={3}
                 onChange={event => { if (2<=event.target.value) {actions.setMatrixSize(event)}}}
             />
         </>
     );
 }
 
-function MatrixInput(){
+function MatrixInput(matrixSize,matrix){
     const { actions, state } = useState(GlobalState);
-    const { matrix, matrixSize} = state;
+    matrix = state.matrix;
+    matrixSize = state.matrixSize;
     console.log("Matrix alv",matrix)
     console.log("MatrixSize", matrixSize)
 
-    let data = Array(matrixSize)
+    matrix = Array(matrixSize)
     for (let i = 0; i < matrixSize; i++) {
-        data[i] = new Array(matrixSize).fill(0)
-        console.log(data[i])
+        matrix[i] = new Array(matrixSize).fill(0)
+        console.log(matrix[i])
     }
 
-    function handleSubmit (event,data) {
+    function handleSubmit (event,matrix) {
         event.preventDefault();
         console.log(event)
         console.log(matrixSize)
-        console.log("What enters? : ",data)
+        console.log("What enters? : ",matrix)
         let count = 0;
         for (let i = 0; i < matrixSize; i++) {
             for (let j = 0; j < matrixSize; j++) {
                 // If the int number cannot be parsed, we set 0 for this value
-                data[i][j] = !isNaN(parseInt(event.target[count].value)) ? parseInt(event.target[count].value) : 0;
+                matrix[i][j] = !isNaN(parseInt(event.target[count].value)) ? parseInt(event.target[count].value) : 0;
                 console.log("Event.target: ",event.target[count].value)
                 count += 1;
 
             }
         }
-        console.log("What exits? : ",data)
-        if(data[0]!==undefined){
+        console.log("What exits? : ",matrix)
+        if(matrix[0]!==undefined){
             console.log("Didn't ignore the setMatrix of handleSubmit ")
-            actions.setMatrix(data);
+            state.matrix= actions.setMatrix();
         }else{
             console.log("Ignored the setMatrix of handleSubmit ")
         }
@@ -73,7 +74,7 @@ function MatrixInput(){
     }
 
     return(
-        <form onSubmit={(e) => handleSubmit(e, data)}>
+        <form onSubmit={(e) => handleSubmit(e, matrix)}>
             {matrix.map((row, indexRow = 1) => {
                 return (
                     <MatrixRow key={indexRow}>
