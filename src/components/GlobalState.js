@@ -2,8 +2,8 @@ import { createStore } from 'global-hook-store';
 
 const GlobalState = createStore(
     {
-        matrixSize: 3,
-        matrix: [[0,0,0], [0,0,0], [0,0,0]]
+        matrixSize: 2,
+        matrix: [["",""], ["",""]]
 
     }, {
         setMatrixSize: (state, matrixSize) => {
