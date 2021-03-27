@@ -98,3 +98,19 @@
   color: #000;
   background-color: #fff;
 }
+
+.row {
+  display: flex;
+}
+
+.column {
+  float: left;
+}
+
+.left {
+  width: 70%;
+}
+
+.right {
+  width: 30%;
+}

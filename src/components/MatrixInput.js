@@ -9,13 +9,10 @@ function MatrixInput(matrixSize, matrix){
     const { actions, state } = useState(GlobalState);
     matrix = state.matrix;
     matrixSize = state.matrixSize;
-    console.log("Matrix alv",matrix)
-    console.log("MatrixSize", matrixSize)
 
     matrix = Array(matrixSize)
     for (let i = 0; i < matrixSize; i++) {
         matrix[i] = new Array(matrixSize).fill("")
-        console.log(matrix[i]);
     }
 
     function handleSubmit (event, matrix) {
