@@ -3,7 +3,8 @@ import { createStore } from 'global-hook-store';
 const GlobalState = createStore(
     {
         matrixSize: 2,
-        matrix: [[0, 0], [0, 0]]
+        matrix: [["",""], ["",""]],
+        found_words: ""
 
     }, {
         setMatrixSize: (state, matrixSize) => {
@@ -14,6 +15,10 @@ const GlobalState = createStore(
         setMatrix: (state, matrix) => {
             return {...state,
             matrix: matrix}
+        },
+        setFoundWords: (state, found_words) =>{
+            return {...state,
+            found_words: found_words}
         }
 
     }

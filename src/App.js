@@ -1,100 +1,45 @@
 import React from 'react';
 import useState from 'global-hook-store';
-//import MatrixInputSize from "./components/MatrixInputSize";
-//import MatrixInput from "./components/MatrixInput";
-import MatrixRow from "./components/MatrixRow";
+import MatrixInputSize from "./components/MatrixInputSize";
+import MatrixInput from "./components/MatrixInput";
 import GlobalState from "./components/GlobalState";
+import Card from "react-bootstrap/Card";
 import './App.css';
+import MatrixOutput from "./components/MatrixOutput";
+const socket = new WebSocket("wss://25zf7whaca.execute-api.us-east-1.amazonaws.com/dev");
 
 function App() {
     const { actions, state } = useState(GlobalState);
-    const matrix = state.matrix;
     const matrixSize = state.matrixSize;
+
+    //As soon as the app starts, the socket opens its connection
+    socket.onopen = () => {}
 
   return (
     <div className="App">
-        <MatrixInputSize setMatrixSize={object => actions.setMatrixSize(object)} />
-
-        <MatrixInput matrixSize={matrixSize} setMatrix={matrix => actions.setMatrix()} />
+        <div id="navbar">
+            <ul>
+                <li><a href="https://github.com/luisdaRC/front-words" target="_blank" rel="noreferrer">Front-End Code</a></li>
+                <li><a href="https://github.com/luisdaRC/words-detector" target="_blank" rel="noreferrer">Back-End Code</a></li>
+            </ul>
+        </div>
+        <br/>
+        <div className="row">
+            <div class="column left">
+                <h1 className="h1-props">Enter the size of the matrix</h1>
+                    <br/>
+                <MatrixInputSize setMatrixSize={object => actions.setMatrixSize(object)} />
+                <br/><br/>
+                <Card.Subtitle> <b>Note</b>: Remember that you should only enter letters in the matrix.</Card.Subtitle>
+                <br/>
+                <MatrixInput socket={socket} matrixSize={matrixSize} setMatrix={matrix => actions.setMatrix(matrix)} />
+            </div>
+            <div class="column right">
+                <MatrixOutput socket={socket}/>
+            </div>
+        </div>
     </div>
   );
-}
-
-function MatrixInputSize() {
-    const {actions} = useState(GlobalState);
-
-    return (
-        <>
-            <input
-                type="number"
-                defaultValue={2}
-                onChange={event => { if (2<=event.target.value) {actions.setMatrixSize(event)}}}
-            />
-        </>
-    );
-}
-
-function MatrixInput(){
-    const { actions, state } = useState(GlobalState);
-    const { matrix, matrixSize} = state;
-    console.log("Matrix alv",matrix)
-    console.log("MatrixSize", matrixSize)
-
-    let data = Array(matrixSize)
-    for (let i = 0; i < matrixSize; i++) {
-        data[i] = new Array(matrixSize).fill(0)
-        console.log(data[i])
-    }
-
-    function handleSubmit (event,data) {
-        event.preventDefault();
-        console.log(event)
-        console.log(matrixSize)
-        console.log("What enters? : ",data)
-        let count = 0;
-        for (let i = 0; i < matrixSize; i++) {
-            for (let j = 0; j < matrixSize; j++) {
-                // If the int number cannot be parsed, we set 0 for this value
-                data[i][j] = !isNaN(parseInt(event.target[count].value)) ? parseInt(event.target[count].value) : 0;
-                console.log("Event.target: ",event.target[count].value)
-                count += 1;
-
-            }
-        }
-        console.log("What exits? : ",data)
-        if(data[0]!==undefined){
-            console.log("Didn't ignore the setMatrix of handleSubmit ")
-            actions.setMatrix(data);
-        }else{
-            console.log("Ignored the setMatrix of handleSubmit ")
-        }
-
-
-    }
-
-    return(
-        <form onSubmit={(e) => handleSubmit(e, data)}>
-            {matrix.map((row, indexRow = 1) => {
-                return (
-                    <MatrixRow key={indexRow}>
-                        {row.map((item, indexColumn = 1) => {
-                            return (
-                                <input
-                                    key={indexRow + " " + indexColumn}
-                                    type="text"
-                                    defaultValue={0}
-                                    name={indexRow + "," + indexColumn}
-                                />
-                            )
-                        })}
-                    </MatrixRow>
-                )
-            })}
-            <button>{"Send matrix"}</button>
-        </form>
-
-    )
-
 }
 
 export default App;

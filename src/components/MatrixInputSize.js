@@ -1,22 +1,18 @@
 import React from 'react';
+import useState from "global-hook-store";
+import GlobalState from "./GlobalState";
 
-function MatrixInputSize(setMatrixSize) {
+function MatrixInputSize() {
+    const {actions} = useState(GlobalState);
 
     return (
-        <input
-            type="number"
-            defaultValue={2}
-            onChange={e => {
-                const size = parseInt(e.target.value)
-                if (2 <= size) {
-                    setMatrixSize(prevSize => ({
-                        columns: size,
-                        rows: size,
-                    }))
-                }
-            }}
-        />
-
+        <>
+            <input className="width-height-size"
+                   type="number"
+                   defaultValue={2}
+                   onChange={event => { if (2<=event.target.value) {actions.setMatrixSize(event)}}}
+            />
+        </>
     );
 }
 

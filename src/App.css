@@ -2,9 +2,43 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.h1-props{
+  font-size: 25px;
+}
+
+.width-height-size{
+  font-size: 35px;
+  width: 63px;
+  height: 30px;
+}
+
+.width-height{
+  padding: .15em;
+  font-size: 25px;
+  width: 30px;
+  height: 30px;
+}
+
+.Button{
+  transition-duration: 0.4s;
+  background-color: #ffffff;
+  border: 2px solid #008CBA;
+  color: #008CBA;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;;
+  font-size: 20px;
+}
+
+.Button:hover{
+  background-color: #008CBA;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;;
+  font-size: 20px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -35,4 +69,48 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+#navbar ul {
+  height: 40px;
+  margin: 0;
+  padding: 5px;
+  list-style-type: none;
+  text-align: right;
+  background-color: #131111;
+}
+
+#navbar ul li {
+  display: inline-flex;
+}
+
+#navbar ul li a {
+  transition-duration: 0.4s;
+  height: 39px;
+  text-decoration: none;
+  padding: .2em 2em;
+  color: #fff;
+  background-color: #000;
+}
+
+#navbar ul li a:hover {
+  height: 39px;
+  color: #000;
+  background-color: #fff;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  float: left;
+}
+
+.left {
+  width: 70%;
+}
+
+.right {
+  width: 30%;
 }
