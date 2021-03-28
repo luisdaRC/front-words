@@ -45,7 +45,7 @@ function MatrixInput(socket,matrixSize, matrix){
                 // Send the message to onMessage route in lambda
                 const toSend = '{"action":"onMessage","matrix":' + matrix_string + '}';
                 socket.socket.send(toSend);
-                Swal.fire('Sending matrix', 'Your words will be found soon.', '');
+                Swal.fire('Sending matrix', 'Your words will be found soon. It does not take longer than 3 minutes normally', '');
             }
         }else if(socket.socket.readyState === WebSocket.CLOSED){
             Swal.fire('Reload application', 'Connection with server has been lost.', 'Alert');
